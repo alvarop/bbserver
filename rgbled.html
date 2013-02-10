@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RGB LED Controller!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="content" style="text-align: center;">
+      <h2>RGB LED Controller!</h2>
+      <button id="allon" class="btn btn-large btn-block" type="button">All On</button>
+      <button id="alloff" class="btn btn-inverse btn-large btn-block" type="button">All Off</button>
+      <button id="bedon" class="btn btn-large btn-block" type="button">Bed On</button>
+      <button id="bedread" class="btn btn-warning btn-large btn-block" type="button">Bed Read</button>
+      <button id="bedoff" class="btn btn-inverse btn-large btn-block" type="button">Bed Off</button>
+      <button id="rackon" class="btn btn-large btn-block" type="button">Rack On</button>
+      <button id="rackoff" class="btn btn-inverse btn-large btn-block" type="button">Rack Off</button>
+      <br />
+    </div>
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+      function setRGBLED(addr,red,green,blue)
+      {
+        $.ajax({
+            url: "http://192.168.1.134/rgbled.php",
+            data: {
+              address:  addr,
+              r:        red,
+              g:        green,
+              b:        blue
+            }
+          });
+      }
+      $(document).ready(function(){
+        $("#allon").click(function() {
+          setRGBLED("0x00", 255, 255, 255);
+        });
+        $("#alloff").click(function() {
+          setRGBLED("0x00", 0, 0, 0);
+        });
+        $("#bedon").click(function() {
+          setRGBLED("0x30", 255, 255, 255);
+        });
+        $("#bedread").click(function() {
+          setRGBLED("0x30", 160, 80, 90);
+        });
+        $("#bedoff").click(function() {
+          setRGBLED("0x30", 0, 0, 0);
+        });
+        $("#rackon").click(function() {
+          setRGBLED("0x20", 255, 255, 255);
+        });
+        $("#rackoff").click(function() {
+          setRGBLED("0x20", 0, 0, 0);
+        });
+      });
+    </script>
+  </body>
+</html>
+
